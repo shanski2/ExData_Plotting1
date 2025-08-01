@@ -10,7 +10,7 @@ datasubset$Date <- as.Date(datasubset$Date, format = "%d/%m/%Y")
 
 #Step 3: Prepare data
 #create datetime variable
-datasubset$DateTime <- as.POSIXct(paste(datasubset$Date, datasubset$Time, sep=" "), "%d/%m/%Y %H:%M:%S")
+datasubset$DateTime <- as.POSIXct(paste(datasubset$Date, datasubset$Time, sep=" "), "%Y-%m-%d %H:%M:%S")
 class(datasubset$DateTime)
 length(datasubset$DateTime)
 
@@ -26,18 +26,34 @@ datasubset$Voltage <- as.numeric(datasubset$Voltage)
 png("plot4.png", width=480, height=480)
 par(mfrow = c(2, 2)) 
 
-plot(datasubset$DateTime, datasubset$globalActivePower, type = "l", xlab = "", ylab="Global Active Power (kilowatts)")
+#plot4a
+plot(datasubset$DateTime, datasubset$globalActivePower, type = "l", xlab = "", ylab="Global Active Power (kilowatts)", xaxt = "n")
+axis(1, 
+     at = as.POSIXct(c("2007-02-01", "2007-02-02", "2007-02-03")),
+     labels = c("Thu", "Fri", "Sat"))
 
-plot(datasubset$DateTime, datasubset$Voltage, type = "l", xlab = "datetime", ylab="Voltage")
+#plot4b
+plot(datasubset$DateTime, datasubset$Voltage, type = "l", xlab = "datetime", ylab="Voltage", xaxt = "n")
+axis(1, 
+     at = as.POSIXct(c("2007-02-01", "2007-02-02", "2007-02-03")),
+     labels = c("Thu", "Fri", "Sat"))
 
-with(datasubset, {plot(Sub_metering_1~DateTime, type = "l", xlab = "", ylab="Energy sub metering")
+#plot4c
+with(datasubset, {plot(Sub_metering_1~DateTime, type = "l", xlab = "", ylab="Energy sub metering", xaxt = "n")
   lines(Sub_metering_2~DateTime, col="red")
   lines(Sub_metering_3~DateTime, col="blue")})
+axis(1, 
+     at = as.POSIXct(c("2007-02-01", "2007-02-02", "2007-02-03")),
+     labels = c("Thu", "Fri", "Sat"))
 
 legend("topright", col=c("black","red","blue"), legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), lty =1)
 
-plot(datasubset$DateTime, datasubset$globalReactivePower, type="l", xlab="datetime", ylab="Global_reactive_power")
+#plot4d
+plot(datasubset$DateTime, datasubset$globalReactivePower, type="l", xlab="datetime", ylab="Global_reactive_power", xaxt = "n")
 #custom x-axis
-#axis.Date(1, at = datasubset$Datetime, format = "%a") 
+axis(1, 
+     at = as.POSIXct(c("2007-02-01", "2007-02-02", "2007-02-03")),
+     labels = c("Thu", "Fri", "Sat"))
+
 
 dev.off()

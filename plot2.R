@@ -21,9 +21,12 @@ length(datasubset$globalActivePower)
 
 #Step 4: Plot 2 - construct and save to PNG file
 png("plot2.png", width=480, height=480)
-plot(datasubset$DateTime, datasubset$globalActivePower, type = "l", xlab = "", ylab="Global Active Power (kilowatts)")
+plot(datasubset$DateTime, datasubset$globalActivePower, type = "l", xlab = "", ylab="Global Active Power (kilowatts)",xaxt = "n")
 
 #custom x-axis
-axis.Date(1, at = datasubset$Datetime, format = "%a") 
+axis(1, 
+     at = as.POSIXct(c("2007-02-01", "2007-02-02", "2007-02-03")),
+     labels = c("Thu", "Fri", "Sat"))
+
 
 dev.off()

@@ -21,13 +21,15 @@ length(datasubset$globalActivePower)
 
 #Step 4: Plot 3 - construct and save to PNG file
 png("plot3.png", width=480, height=480)
-with(datasubset, {plot(Sub_metering_1~DateTime, type = "l", xlab = "", ylab="Energy sub metering")
+with(datasubset, {plot(Sub_metering_1~DateTime, type = "l", xlab = "", ylab="Energy sub metering", xaxt = "n")
      lines(Sub_metering_2~DateTime, col="red")
      lines(Sub_metering_3~DateTime, col="blue")})
 
 legend("topright", col=c("black","red","blue"), legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), lty =1)
 
 #custom x-axis
-#axis.Date(1, at = datasubset$Datetime, format = "%a") 
+axis(1, 
+     at = as.POSIXct(c("2007-02-01", "2007-02-02", "2007-02-03")),
+     labels = c("Thu", "Fri", "Sat"))
 
 dev.off()
